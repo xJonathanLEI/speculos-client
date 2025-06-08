@@ -139,7 +139,8 @@ struct PostAutomationRequest<'a> {
 }
 
 impl SpeculosClient {
-    /// Creates a new [`SpeculosClient`] by launching the `speculos` command.
+    /// Creates a new [`SpeculosClient`] by launching the `speculos` command with a default timeout
+    /// of 10 seconds.
     ///
     /// This method requires the `speculos` command to be available from `PATH`.
     ///
@@ -148,6 +149,20 @@ impl SpeculosClient {
         model: DeviceModel,
         port: u16,
         app: P,
+    ) -> Result<Self, SpeculosError> {
+        Self::new_with_timeout(model, port, app, Duration::from_secs(10))
+    }
+
+    /// Creates a new [`SpeculosClient`] by launching the `speculos` command with a custom timeout.
+    ///
+    /// This method requires the `speculos` command to be available from `PATH`.
+    ///
+    /// Use different `port` values when launching multiple instances to avoid port conflicts.
+    pub fn new_with_timeout<P: AsRef<Path>>(
+        model: DeviceModel,
+        port: u16,
+        app: P,
+        timeout: Duration,
     ) -> Result<Self, SpeculosError> {
         let mut process = Command::new("speculos")
             .args([
@@ -177,10 +192,7 @@ impl SpeculosClient {
         Ok(Self {
             process,
             port,
-            client: ClientBuilder::new()
-                .timeout(Duration::from_secs(10))
-                .build()
-                .unwrap(),
+            client: ClientBuilder::new().timeout(timeout).build().unwrap(),
         })
     }
 
