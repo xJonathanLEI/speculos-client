@@ -1,0 +1,13 @@
+[package]
+name = "speculos-client"
+version = "0.1.0"
+authors = ["Jonathan LEI <me@xjonathan.dev>"]
+license = "MIT OR Apache-2.0"
+edition = "2024"
+readme = "README.md"
+description = "Speculos client written in Rust for Ledger integration testing."
+
+[dependencies]
+hex = { version = "0.4.3", default-features = false, features = ["alloc", "serde"] }
+reqwest = { version = "0.12.19", default-features = false, features = ["json"] }
+serde = { version = "1.0.219", default-features = false, features = ["derive"] }
