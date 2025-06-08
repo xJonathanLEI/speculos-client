@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+
+name: "Clippy"
+
+jobs:
+  clippy:
+    name: "Run clippy"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout source code"
+        uses: "actions/checkout@v4"
+
+      - name: "Setup stable toolchain"
+        uses: "actions-rs/toolchain@v1"
+        with:
+          toolchain: "stable"
+          profile: "minimal"
+          override: true
+
+      - name: "Run clippy"
+        run: |
+          cargo clippy --all --all-targets -- -D warnings
