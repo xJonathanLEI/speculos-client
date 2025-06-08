@@ -144,7 +144,7 @@ impl SpeculosClient {
     /// This method requires the `speculos` command to be available from `PATH`.
     ///
     /// Use different `port` values when launching multiple instances to avoid port conflicts.
-    pub async fn new<P: AsRef<Path>>(
+    pub fn new<P: AsRef<Path>>(
         model: DeviceModel,
         port: u16,
         app: P,
