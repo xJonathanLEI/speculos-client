@@ -97,9 +97,9 @@ pub enum AutomationAction<'a> {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AutomationCondition<'a> {
     /// Name of the variable to be updated.
-    varname: Cow<'a, str>,
+    pub varname: Cow<'a, str>,
     /// The new variable value.
-    value: bool,
+    pub value: bool,
 }
 
 /// Ledger buttons.
